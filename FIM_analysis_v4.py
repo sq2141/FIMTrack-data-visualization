@@ -179,36 +179,6 @@ plt.setp(labels, rotation=rot)
 plt.tick_params(axis='x', labelsize=xlabelsize)
 pp.savefig()
 
-#L&R bended
-#Create long format dataframes
-left_avg_joined = pd.concat(left_avg, axis=0)
-left_df = pd.DataFrame(left_avg_joined)
-left_df.drop('Avg_group',inplace=True)
-left_df['Side']='Left'
-left_df['Group']='Placeholder'
-left_df.columns = ['Frequency','Side','Group']
-for i in range(0,len(filePathList)):
-    left_df.ix[i*numLarv[i]:(i+1)*numLarv[i],['Group']]= fileName[i]
-
-right_avg_joined = pd.concat(right_avg, axis=0)
-right_df = pd.DataFrame(right_avg_joined)
-right_df.drop('Avg_group',inplace=True)
-right_df['Side']='Right'
-right_df['Group']='Placeholder'
-right_df.columns = ['Frequency','Side','Group']
-for i in range(0,len(filePathList)):
-    right_df.ix[i*numLarv[i]:(i+1)*numLarv[i],['Group']]= fileName[i]
-
-LR_list = [left_df, right_df]
-LR = pd.concat(LR_list,axis=0)
-
-#LR figure
-plt.figure()
-plt.title('Left and Right bending frequency')
-sns.boxplot(data=LR,x='Group',y='Frequency',hue='Side')
-pp.savefig()
-
-
 #Coiling frequency
 plt.figure()
 for i in range(0,len(filePathList)):
